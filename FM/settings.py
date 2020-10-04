@@ -28,7 +28,7 @@ SECRET_KEY = '@##i8n_c0!e5#r^^%#*^pu*f0afrcw$tspbzj8h%6-_lz^z1#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['typicaltest.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'core.apps.CoreConfig',
     'myapi.apps.MyapiConfig',
     'rest_framework',
+    'myapi',
 ]
 
 MIDDLEWARE = [
