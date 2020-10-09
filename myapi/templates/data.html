@@ -13,16 +13,15 @@
     </tr>
   </thead>
   <tbody>
+    {% for file in files_data %}
       <tr>
-      {% for file in files_meta %}
         <th>{{file.name}}</th>
         <th>{{file.category}}</th>
-      {% endfor %}
-      {% for file in files_data %}
-        <th>{{file.data.name}}</th>
         <th>{{file.file.name}}</th>
+        <th>{{file.data.name}}</th>
+      </tr>
       {% endfor %}
-    </tr>
+
   </tbody>
 
 
