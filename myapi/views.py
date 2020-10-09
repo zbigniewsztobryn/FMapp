@@ -18,6 +18,7 @@ class AddFileView(View):
     def get(self, request):
 
         files_data = self.save_file_model.objects.all()
+        files_meta = self.data_model.objects.all()
 
         return render(request, 'data.html', locals())
 
@@ -36,7 +37,7 @@ class AddFileView(View):
             file_object = self.save_file_model(data=data, file=get_file)
             file_object.save()
 
-        messages.success(request, 'Plik został dodany')
+        messages.success(request, 'File has beed added')
 
         return render(request, 'data.html', locals())
 
