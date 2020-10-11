@@ -7,11 +7,12 @@
   <thead>
     <tr>
       <th>File name</th>
+      <th>Path</th>
       <th>Original</th>
       <th>Category</th>
-      <th>Date</th>
-      <th>Name</th>
-      <th>Last Name</th>
+      <th>Value</th>
+      <th>Fname</th>
+      <th>Lname</th>
       <th>Company</th>
       <th>Phone</th>
     </tr>
@@ -19,8 +20,9 @@
   <tbody>
     {% for file in files_data %}
       <tr>
+        <th>{{file.file}}</th>
         <th>{{file.data}}</th>
-        <th><a href='{{ MEDIA_URL }}{{ file.relative_path }}'>{{ file.file }}</a></th>
+        <th>{{file.data.name}}</th>
         <th>{{file.data.category}}</th>
         <th>{{file.data.value}}</th>
         <th>{{file.data.contact.cont_fname}}</th>
@@ -49,39 +51,31 @@
   <form method="post" action="." id="form_id" enctype="multipart/form-data">{% csrf_token %}
 
     <div class="form-group row" align="right">
-      <label class="col-form-label col-sm-4">File name</label>
+      <label class="col-form-label col-sm-4">Title</label>
       <div class="col-sm-5">
           <input type="text" class="form-control" name='title' required>
       </div>
     </div>
 
     <div class="form-group row" align="right">
-      <label class="col-form-label col-sm-4">Date</label>
+      <label class="col-form-label col-sm-4">Category</label>
       <div class="col-sm-5">
-          <input type="date" class="form-control" name='date_in' required>
+          <input type="text" class="form-control" name='title'>
       </div>
     </div>
 
     <div class="form-group row" align="right">
+
       <div class="col-sm-5">
-            <label for="contacts">Contact:</label>
-            <select id="contacts" name="contact_in">
+        <form>
+          <label for="contacts">Choose a contact:</label>
+            <select id="contacts" name="contacts">
               {% for contact in files_contacts %}
               <!-- put value of contact here! --!>
-                <option value={{contact.id}}>{{contact.cont_fname}} {{contact.cont_lname}}</option>
+                <option value={{contact.cont_fname}}>{{contact.cont_fname}} {{contact.cont_lname}}</option>
                 {% endfor %}
             </select>
-      </div>
-    </div>
-  <div class="form-group row" align="right">
-      <div class="col-sm-5">
-            <label for="categories">Category</label>
-            <select id="categories" name="categories_in">
-              {% for category in files_tags %}
-              <!-- put value of contact here! --!>
-                <option value={{category.categories}}>{{category.categories}}</option>
-                {% endfor %}
-            </select>
+        </form>
       </div>
     </div>
 
