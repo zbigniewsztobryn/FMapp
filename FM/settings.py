@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 'core.apps.CoreConfig',
     'myapi.apps.MyapiConfig',
     'rest_framework',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -132,6 +133,26 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# AWS CREDENCIALS # AWS CREDENCIALS # AWS CREDENCIALS
+
+AWS_ACCESS_KEY_ID = 'AKIAR43Z6RQRIZ6YJDRZ' # OK!
+AWS_SECRET_ACCESS_KEY = 'qT3ugvqUY/e1TgrrBVPzk+ARcSSWcDDYZbxzWjBIPeg=' #
+AWS_STORAGE_BUCKET_NAME = 'fmapplication' # OK!
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'myapi/static'),
+]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS CREDENCIALS # AWS CREDENCIALS # AWS CREDENCIALS
+
 
 
 # Static files (CSS, JavaScript, Images)

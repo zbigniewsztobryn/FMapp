@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+<table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
   <thead>
     <tr>
       <th>File name</th>
@@ -32,26 +32,32 @@
 
   </tbody>
 
-<datalist id="searchable">
-      {% for file in files_contacts %}
-        <option value={{file.cont_fname}}>
-        <option value={{file.cont_lname}}>
-        {% endfor %}
-    </datalist>
 
-  <form class="form-group row" method="GET" action="" >
-      <input class="form-group row" type="text" list="searchable" name="search">
-      <button class="form-group row" type="submit"> Search </button>
-  </form>
 
 <div class="container-fluid">
+
+  <datalist id="searchable">
+    {% for file in files_contacts %}
+      <option value={{file.cont_fname}}>
+      <option value={{file.cont_lname}}>
+      {% endfor %}
+  </datalist>
+  <form  method="GET" action="" >
+    <div class="form-group row" align="right">
+      <label class="col-form-label col-sm-4"></label>
+      <div class="col-sm-5">
+        <input class="form-control" type="text" list="searchable" name="search">
+        <button class="btn btn-primary" type="submit" > Search </button>
+      </div>
+    </div>
+  </form>
 
   <form method="post" action="." id="form_id" enctype="multipart/form-data">{% csrf_token %}
 
     <div class="form-group row" align="right">
       <label class="col-form-label col-sm-4">File name</label>
       <div class="col-sm-5">
-          <input type="text" class="form-control" name='title' required>
+        <input type="text" class="form-control" name='title' required>
       </div>
     </div>
 
@@ -63,22 +69,22 @@
     </div>
 
     <div class="form-group row" align="right">
+      <label class="col-form-label col-sm-4" for="contacts">Contact:</label>
       <div class="col-sm-5">
-            <label for="contacts">Contact:</label>
-            <select id="contacts" name="contact_in">
+
+            <select id="contacts" class="form-control" name="contact_in" align="right">
               {% for contact in files_contacts %}
-              <!-- put value of contact here! --!>
                 <option value={{contact.id}}>{{contact.cont_fname}} {{contact.cont_lname}}</option>
                 {% endfor %}
             </select>
       </div>
     </div>
   <div class="form-group row" align="right">
+    <label class="col-form-label col-sm-4" for="categories">Category</label>
       <div class="col-sm-5">
-            <label for="categories">Category</label>
-            <select id="categories" name="categories_in">
+
+            <select id="categories" class="form-control" name="categories_in">
               {% for category in files_tags %}
-              <!-- put value of contact here! --!>
                 <option value={{category.categories}}>{{category.categories}}</option>
                 {% endfor %}
             </select>
