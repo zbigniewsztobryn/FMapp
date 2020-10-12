@@ -11,5 +11,6 @@ from .views import *
 urlpatterns = [
 #    path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('heroes/', AddFileView.as_view())
+    path('addfile/', AddFileView.as_view()),
+    path('', SearchView.as_view())
 ]

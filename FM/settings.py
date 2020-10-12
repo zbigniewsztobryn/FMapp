@@ -41,9 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'works.apps.WorksConfig',
-    # 'blog.apps.BlogConfig',
-    # 'core.apps.CoreConfig',
     'myapi.apps.MyapiConfig',
     'rest_framework',
     'storages',
@@ -65,7 +62,7 @@ ROOT_URLCONF = 'FM.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['myapi/templates/', 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

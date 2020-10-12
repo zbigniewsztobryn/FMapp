@@ -12,22 +12,34 @@ class HeroViewSet (viewsets.ModelViewSet):
     queryset = Hero.objects.all().order_by('name')
     serializer_class = HeroSerializer
 
-class SearchView(ListView):
-    model = Data
-    template_name = 'data.html'
+def home(request):
+    return render (request, 'index.html', {'var': 'content'})
+
+class SearchView(View):
+    data_model = Data
+    contacts_model = Contacts
+    save_file_model = SaveFile
+    categories_model = Tags
+    template_name = 'index.html'
     context_object_name = 'all_search_results'
 
-    def get_queryset(self):
-       result = super(SearchView, self).get_queryset()
-       query = self.request.GET.get('search')
-       if query:
-          postresult = Data.objects.filter(title__contains=query)
-          result = postresult
-       else:
-           result = None
-       return result
 
 
+    def get(self, request):
+        data_model = Data
+        save_file_model = SaveFile
+        files_data = self.save_file_model.objects.all()
+        files_meta = self.data_model.objects.all()
+        files_contacts = self.contacts_model.objects.all()
+        files_tags = self.categories_model.objects.all()
+        query = self.request.GET.get('search')
+
+        if query:
+            postresult = save_file_model.objects.filter(file__contains=query)
+            result = postresult
+        else:
+            result = None
+        return render(request, 'index.html', locals())
 
 class AddFileView(View):
     data_model = Data
@@ -35,15 +47,13 @@ class AddFileView(View):
     save_file_model = SaveFile
     categories_model = Tags
 
-
     def get(self, request):
 
+        files_data = self.save_file_model.objects.all()
         files_data = self.save_file_model.objects.all()
         files_meta = self.data_model.objects.all()
         files_contacts = self.contacts_model.objects.all()
         files_tags = self.categories_model.objects.all()
-
-        #allfiles = self.data_model.objects.all()
         return render(request, 'data.html', locals())
 
     def post(self, request):

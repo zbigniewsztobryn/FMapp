@@ -1,56 +1,40 @@
 <!DOCTYPE html>
-{% extends "home.html" %}
+{% extends "index.html" %}
 
 {% block content %}
 
-<table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">
-  <thead>
-    <tr>
-      <th>File name</th>
-      <th>Original</th>
-      <th>Category</th>
-      <th>Date</th>
-      <th>Name</th>
-      <th>Last Name</th>
-      <th>Company</th>
-      <th>Phone</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for file in files_data %}
-      <tr>
-        <th>{{file.data}}</th>
-        <th><a href='{{ MEDIA_URL }}{{ file.relative_path }}'>{{ file.file }}</a></th>
-        <th>{{file.data.category}}</th>
-        <th>{{file.data.value}}</th>
-        <th>{{file.data.contact.cont_fname}}</th>
-        <th>{{file.data.contact.cont_lname}}</th>
-        <th>{{file.data.contact.cont_company}}</th>
-        <th>{{file.data.contact.cont_phone}}</th>
-      </tr>
-      {% endfor %}
+<!--<table class="table table-bordered" id="dataTable" width="80%" cellspacing="0">-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th>File name</th>-->
+<!--      <th>Original</th>-->
+<!--      <th>Category</th>-->
+<!--      <th>Date</th>-->
+<!--      <th>Name</th>-->
+<!--      <th>Last Name</th>-->
+<!--      <th>Company</th>-->
+<!--      <th>Phone</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    {% for file in files_data %}-->
+<!--      <tr>-->
+<!--        <th>{{file.data}}</th>-->
+<!--        <th><a href='{{ MEDIA_URL }}{{ file.relative_path }}'>{{ file.file }}</a></th>-->
+<!--        <th>{{file.data.category}}</th>-->
+<!--        <th>{{file.data.value}}</th>-->
+<!--        <th>{{file.data.contact.cont_fname}}</th>-->
+<!--        <th>{{file.data.contact.cont_lname}}</th>-->
+<!--        <th>{{file.data.contact.cont_company}}</th>-->
+<!--        <th>{{file.data.contact.cont_phone}}</th>-->
+<!--      </tr>-->
+<!--      {% endfor %}-->
 
-  </tbody>
-
-
+<!--  </tbody>-->
 
 <div class="container-fluid">
 
-  <datalist id="searchable">
-    {% for file in files_contacts %}
-      <option value={{file.cont_fname}}>
-      <option value={{file.cont_lname}}>
-      {% endfor %}
-  </datalist>
-  <form  method="GET" action="" >
-    <div class="form-group row" align="right">
-      <label class="col-form-label col-sm-4"></label>
-      <div class="col-sm-5">
-        <input class="form-control" type="text" list="searchable" name="search">
-        <button class="btn btn-primary" type="submit" > Search </button>
-      </div>
-    </div>
-  </form>
+
 
   <form method="post" action="." id="form_id" enctype="multipart/form-data">{% csrf_token %}
 
@@ -72,7 +56,7 @@
       <label class="col-form-label col-sm-4" for="contacts">Contact:</label>
       <div class="col-sm-5">
 
-            <select id="contacts" class="form-control" name="contact_in" align="right">
+            <select id="contacts" class="form-control" name="contact_in" >
               {% for contact in files_contacts %}
                 <option value={{contact.id}}>{{contact.cont_fname}} {{contact.cont_lname}}</option>
                 {% endfor %}
@@ -107,18 +91,11 @@
     <!-- handle display file name -->
     <script>
 
-
         $('#id_file').on('change',function(){
             var file_name = $(this).val().pop();
             $('.file').html(file_name);
         })
     </script>
-
-
-
-
-
-
 
     <div class="form-group row">
       <div class="offset-sm-4 pt-5">
