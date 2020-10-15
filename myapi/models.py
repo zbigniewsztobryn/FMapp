@@ -51,12 +51,10 @@ class Data(models.Model):
     objects = models.Manager()
 
 
+
 class Appartments(models.Model):
     appartment_name = models.CharField(max_length=200, null=True)
-    floor = models.ForeignKey(Floors, blank=True, null=True, on_delete=models.CASCADE)
-
-class Floors(models.Model):
-    floor_name = models.CharField(max_length=200, null=True)
+    floor = models.CharField(max_length=200, null=True)
 
 class Zones(models.Model):
     number = models.CharField(max_length=200, null=True)
