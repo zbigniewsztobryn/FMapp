@@ -26,11 +26,14 @@ class Contacts(models.Model):
 
 class Tags(models.Model):
 
+    objects = models.CharField(max_length=200, null=True)
     categories = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
         return self.get_category_display()
+
+    objects = models.Manager()
 
 class Data(models.Model):
     name = models.CharField(max_length=200, null=True)
@@ -46,7 +49,7 @@ class Data(models.Model):
 
 
 class SaveFile(models.Model):
-    file = models.FileField(upload_to='temp/', blank=True, null=True)
+    file = models.FileField(upload_to='files/', blank=True, null=True)
     data = models.ForeignKey(Data, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
