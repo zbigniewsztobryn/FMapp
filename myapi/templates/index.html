@@ -3,10 +3,11 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Title</title>
-
+    <title>SBI FMApplication</title>
+    <link rel="icon" type="image/jpg" href="https://img.icons8.com/color/48/000000/swiss-franc--v1.png"/>
     <!-- menu font awesome css -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
 
     <!-- jquery -->
     <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.js"></script>
@@ -44,7 +45,8 @@
   <thead>
     <tr>
       <th>File name</th>
-        <th>Path</th>
+      <th>Alias</th>
+      <th>Path</th>
       <th>Category</th>
       <th>Date</th>
       <th>Name</th>
@@ -58,8 +60,9 @@
     {% for file in result %}
        <tr>
         <td>{{file.data}}</td>
+           <td>{{file.data.initials}}</td>
         <td>{{file.file}}</td>
-        <td>{{file.data.category}}</td>
+        <td>{{file.data.tag.categories}}</td>
         <td>{{file.data.value}}</td>
         <td>{{file.data.contact.cont_fname}}</td>
         <td>{{file.data.contact.cont_lname}}</td>

@@ -10,7 +10,7 @@ from django.http import HttpResponse
 import boto
 import re
 import os
-
+from datetime import datetime
 from django.conf import settings
 from boto.s3.connection import OrdinaryCallingFormat
 import mimetypes
@@ -121,7 +121,20 @@ class AddFileView(View):
         get_category = request.POST.get('categories_in')
         get_date = request.POST.get('date_in')
 
-        data = self.data_model(name=get_title, category=get_category,value = get_date, contact_id = get_contact)
+        get_date_format = (datetime.strptime(get_date, '%Y-%m-%d').strftime('%y%m%d'))
+
+        full_contact = self.contacts_model.objects.filter(id=get_contact)
+        full_contact_list = []
+        for i in full_contact:
+            full_contact_list.append(str(i.cont_company))
+        get_company = (full_contact_list[0])[0:3].upper()
+        getalias = (get_date_format + '-' +
+                    get_category[0:3]).upper() + '-' + \
+                    get_company + '-' + \
+                    str(get_file)
+
+
+        data = self.data_model(name=get_title, initials =getalias , tag_id=get_category, value = get_date, contact_id = get_contact)
         data.save()
 
         # upload single image
