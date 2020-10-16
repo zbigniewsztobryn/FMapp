@@ -83,13 +83,11 @@ WSGI_APPLICATION = 'FM.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'SBI',
-        'PASSWORD': 'SwissPass9292',
-        'HOST': 'postgres-fm.ch4bqu9hcnct.eu-central-1.rds.amazonaws.com',
+# SECRET HERE!!!
+# SECRET HERE!!!
         'PORT': '5432',
     }
 }
@@ -135,8 +133,8 @@ USE_TZ = True
 # AWS CREDENCIALS # AWS CREDENCIALS # AWS CREDENCIALS
 
 
-
-
+# SECRET HERE!!!
+# SECRET HERE!!!
 
 AWS_STORAGE_BUCKET_NAME = 'fmapplication' # OK!
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
