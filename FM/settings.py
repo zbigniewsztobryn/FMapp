@@ -20,7 +20,6 @@ from .config import Config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -84,12 +83,12 @@ WSGI_APPLICATION = 'FM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': Config.SECRET_NAME,
-        'USER': Config.SECRET_USER,
+        'ENGINE':   'django.db.backends.postgresql_psycopg2',
+        'NAME':     Config.SECRET_NAME,
+        'USER':     Config.SECRET_USER,
         'PASSWORD': Config.SECRET_PASSWORD,
-        'HOST': Config.SECRET_HOST,
-        'PORT': '5432',
+        'HOST':     Config.SECRET_HOST,
+        'PORT':     '5432',
     }
 }
 
@@ -133,27 +132,42 @@ USE_TZ = True
 
 # AWS CREDENCIALS # AWS CREDENCIALS # AWS CREDENCIALS
 
+AWS_ACCESS_KEY_ID       = Config.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY   = Config.AWS_SECRET_ACCESS_KEY
 
-# SECRET HERE!!!
-# SECRET HERE!!!
+AWS_STORAGE_BUCKET_NAME = Config.AWS_STORAGE_BUCKET_NAME
 
-AWS_STORAGE_BUCKET_NAME = 'fmapplication' # OK!
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_LOCATION = 'static/files'
+AWS_LOCATION = 'documents'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '/documents'),
+]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'myapi/static'),
-]
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#StaticRootS3BotoStorage = lambda: S3Boto3Storage(location='root')
+#MediaRootS3BotoStorage  = lambda: S3Boto3Storage(location='media')
+
+#STATICFILES_STORAGE = 'myproject.s3utils.StaticRootS3BotoStorage'
+#DEFAULT_FILE_STORAGE = 'myproject.s3utils.MediaRootS3BotoStorage'
+
+#
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'myapi/static'),
+# ]
+
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
 
 # AWS CREDENCIALS # AWS CREDENCIALS # AWS CREDENCIALS
+
 
 
 
@@ -165,15 +179,15 @@ MEDIA_URL = 'media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
+###PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+###PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+###STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+###STATIC_URL = '/static/'
 
 # Extra lookup directories for collectstatic to find static files
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
+###STATICFILES_DIRS = (
+###    os.path.join(PROJECT_ROOT, 'static'),
+###)
 
 #  Add configuration for static files storage using whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

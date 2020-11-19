@@ -128,10 +128,19 @@ class AddFileView(View):
         for i in full_contact:
             full_contact_list.append(str(i.cont_company))
         get_company = (full_contact_list[0])[0:3].upper()
+
+
+        full_category = self.categories_model.objects.filter(id=get_category)
+        full_category_list = []
+        for i in full_category:
+            full_category_list.append(str(i.categories))
+        get_category_alias = (full_category_list[0])[0:3].upper()
+
+
         getalias = (get_date_format + '-' +
-                    get_category[0:3]).upper() + '-' + \
+                    get_category_alias + '-' + \
                     get_company + '-' + \
-                    str(get_file)
+                    str(get_file))
 
 
         data = self.data_model(name=get_title, initials =getalias , tag_id=get_category, value = get_date, contact_id = get_contact)
