@@ -1,25 +1,36 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from django.views.generic import View, ListView
 from django.db.models import CharField, Value as V
 from django.db.models.functions import Concat
-from .serializers import HeroSerializer
-from .models import Hero, Data, SaveFile, Contacts, Tags
-from django.contrib import messages
 from django.http import HttpResponse
 import boto
 import re
 import os
-from datetime import datetime
 from django.conf import settings
 from boto.s3.connection import OrdinaryCallingFormat
 import mimetypes
 
+from rest_framework.viewsets import ModelViewSet
+from .serializers import ContactsSerializer, DataSerializer,PropertiesSerializer
+
+from django.shortcuts import render
+from rest_framework import viewsets
+from django.views.generic import View, ListView
+from .models import Data, SaveFile, Contacts, Tags, Properties
+from django.contrib import messages
+from datetime import datetime
 from django.db.models import Q
 
-class HeroViewSet (viewsets.ModelViewSet):
-    queryset = Hero.objects.all().order_by('name')
-    serializer_class = HeroSerializer
+
+class PropertiesViewSet(ModelViewSet):
+    serializer_class = PropertiesSerializer
+    queryset = Properties.objects.all()
+
+class ContactsViewSet(ModelViewSet):
+    serializer_class = ContactsSerializer
+    queryset = Contacts.objects.all()
+class DataViewSet(ModelViewSet):
+    serializer_class = DataSerializer
+    queryset = Data.objects.all()
+
 
 def home(request):
     return render (request, 'index.html', {'var': 'content'})
